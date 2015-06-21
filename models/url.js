@@ -9,9 +9,15 @@ var URL = function() {
   var counter;
 
   var urlValidationExp = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
+  var ipValidationExp = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
   function isValidUrl(url) {
      return urlValidationExp.test(url);
+  }
+
+  function isVlidIP(ip) {
+      console.log(ipValidationExp.test(ip), ip);
+    return ipValidationExp.test(ip);
   }
 
   URL.connection().setnx("counter", 0, function(err, res) {
@@ -37,7 +43,7 @@ var URL = function() {
   };
 
   that.create = function(url, cb) {
-    if(!isValidUrl(url)) {
+    if(!isValidUrl(url) && !isVlidIP(url)) {
       cb(new Error("Invalid Url"));
       return;
     }

@@ -39,7 +39,7 @@ var mLinks = function(opts) {
   });
 
   app.post("/shortURL", function(req, response) {
-    url.create(req.body.url, function(err, res) {
+    url.create(req.body.url.trim(), function(err, res) {
       if(err) {
         resp = {success:false, error: "The url cannot be shortened because its unsafe."};
       } else {
