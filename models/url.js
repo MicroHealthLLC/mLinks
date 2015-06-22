@@ -16,8 +16,22 @@ var URL = function() {
   }
 
   function isVlidIP(ip) {
-      console.log(ipValidationExp.test(ip), ip);
     return ipValidationExp.test(ip);
+  }
+
+  function isMixOfIpAndQuary(url) {
+      if(url.indexOf("http://") == 0){
+          url = url.slice(8, url.length);
+      } else if(url.indexOf("https://") == 0){
+          url = url.slice(9, url.length);
+      }
+      var array = url.split(".");
+      var ip = "";
+
+      for(var x = 0; x < 4; x++) {
+          ip = ip + "" + (ip !== "" ? "."+parseInt(array[x]):parseInt(array[x]));
+      }
+      return isVlidIP(ip);
   }
 
   URL.connection().setnx("counter", 0, function(err, res) {
@@ -43,7 +57,7 @@ var URL = function() {
   };
 
   that.create = function(url, cb) {
-    if(!isValidUrl(url) && !isVlidIP(url)) {
+    if(!isValidUrl(url) && !isVlidIP(url) && !isMixOfIpAndQuary(url)) {
       cb(new Error("Invalid Url"));
       return;
     }

@@ -40,9 +40,9 @@ describe("API", function() {
     });
   });
 
-  it("post /shrtn", function(done) {
+  it("post /mLinks", function(done) {
     request.post(
-      { url: baseUrl + "/shrtn", json: { url: "http://example.com" } },
+      { url: baseUrl + "/mLinks", json: { url: "http://example.com" } },
       function(err, res, body) {
         expect(res.statusCode).toBe(200);
         done();
@@ -50,9 +50,9 @@ describe("API", function() {
     );
   });
 
-  it("does not allow invalid urls in post /shrtn", function(done) {
+  it("does not allow invalid urls in post /mLinks", function(done) {
     request.post(
-      { url: baseUrl + "/shrtn", json: { url: "invalid" } },
+      { url: baseUrl + "/mLinks", json: { url: "invalid" } },
       function(err, res, body) {
         expect(body.error).toBeNotNull();
         done();
