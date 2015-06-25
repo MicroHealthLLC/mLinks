@@ -1,0 +1,20 @@
+Shrtr server listening on port 3000 in development mode
+events.js:85
+      throw er; // Unhandled 'error' event
+            ^
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+    at RedisClient.on_error (/usr/share/Shrtr/node_modules/redis/index.js:196:24)
+    at Socket.<anonymous> (/usr/share/Shrtr/node_modules/redis/index.js:106:14)
+    at Socket.emit (events.js:107:17)
+    at net.js:459:14
+    at process._tickCallback (node.js:355:11)
+Shrtr server listening on port 3000 in development mode
+events.js:85
+      throw er; // Unhandled 'error' event
+            ^
+Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+    at RedisClient.on_error (/usr/share/Shrtr/node_modules/redis/index.js:196:24)
+    at Socket.<anonymous> (/usr/share/Shrtr/node_modules/redis/index.js:106:14)
+    at Socket.emit (events.js:107:17)
+    at net.js:459:14
+    at process._tickCallback (node.js:355:11)
