@@ -91,8 +91,6 @@
               copyButton.click();
           },100);
       }
-
-
     // we want to extned an url so display resolved and redirect
     if(window.mLinksSurl !== "false") {
       spin.show();
@@ -122,7 +120,7 @@
               if(i>0){
                   mLinks.empty().append(redirectTemplate({
                       urlOne: surl,
-                      urlTwo: "Redirecting in "+--i+"sec " + data.url
+                      urlTwo: "Redirecting in "+--i+" sec " + data.url
                   }));
               }
           }, 1000);

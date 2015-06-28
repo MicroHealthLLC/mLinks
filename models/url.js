@@ -14,11 +14,9 @@ var URL = function() {
   function isValidUrl(url) {
      return urlValidationExp.test(url);
   }
-
   function isVlidIP(ip) {
     return ipValidationExp.test(ip);
   }
-
   function isMixOfIpAndQuary(url) {
       if(url.indexOf("http://") == 0){
           url = url.slice(8, url.length);
@@ -33,7 +31,6 @@ var URL = function() {
       }
       return isVlidIP(ip);
   }
-
   URL.connection().setnx("counter", 0, function(err, res) {
     if(err) throw "Initialization failed";
     if(res === 1) {
@@ -45,7 +42,6 @@ var URL = function() {
       });
     }
   });
-
     that.remove = function() {
         var con = URL.connection();
         con.keys('*', function (err, keys) {
@@ -75,7 +71,6 @@ var URL = function() {
             next();
         });
     }
-
     that.vanityURL = function(sUrl, vUrl, cb) {
         URL.connection().get(sUrl, function(err, res) {
             if (err) {
@@ -111,13 +106,11 @@ var URL = function() {
         });
     });
   };
-
   that.create = function(url, cb) {
     if(!isValidUrl(url) && !isVlidIP(url) && !isMixOfIpAndQuary(url)) {
       cb(new Error("Invalid Url"));
       return;
     }
-
     URL.connection().incr("counter", function(err, res) {
       if(err) {
         cb(err);
@@ -137,10 +130,8 @@ var URL = function() {
       });
     });
   };
-
   return that;
 };
-
 var db = null;
 URL.connection = function() {
   if(db) return db; // already connected
@@ -155,10 +146,8 @@ URL.connection = function() {
   }
   return db;
 };
-
 URL.closeConnection = function() {
   if(db) db.quit();
   db = null;
 };
-
 module.exports = URL;

@@ -5,7 +5,6 @@
  *  app: APPLICATION
  * }
  */
-
 var URL = require("../models/url");
 
 var mLinks = function(opts) {
@@ -17,11 +16,9 @@ var mLinks = function(opts) {
   app.get("/", function(req, res) {
     res.render("mLinks", { surl: false });
   });
-
   app.get("/:surl", function(req, res) {
     res.render("mLinks", { surl: req.params.surl });
   });
-
   // Extend and shorten urls
   app.post("/extn", function(req, response) {
     url.get(req.body.surl, function(err, res) {
@@ -37,7 +34,6 @@ var mLinks = function(opts) {
       response.send(resp);
     });
   });
-
     app.post("/vanityURL", function(req, response) {
         url.vanityURL(req.body.sortUrl, req.body.vanityUrl, function(err, res) {
             if(err) {
@@ -48,7 +44,6 @@ var mLinks = function(opts) {
             response.send(resp);
         });
     });
-
   app.post("/shortURL", function(req, response) {
     url.create(req.body.url.trim(), function(err, res) {
       if(err) {
