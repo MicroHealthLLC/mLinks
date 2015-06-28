@@ -5,8 +5,8 @@
   }
   // DOM ready
   $(function(){
-    var mLinks = $("#mLinks"),
-        spin = $("<img />").attr("src", "/img/spinner.gif");
+    var mLinks = $("#mLinks p"),
+        spin = $("<img class='spin' />").attr("src", "/img/spinner.gif");
     // progress indicator
       mLinks.append(spin);
     spin.hide();
@@ -27,7 +27,7 @@
         if(!data.success) {
             mLinks.append(unsafeTemplate({
             urlOne: "Current status for " + url,
-            urlTwo: data.error
+            error: data.error
           }));
           return;
         }
@@ -37,6 +37,26 @@
         }));
       });
     };
+
+      window.showFormTemplate = function() {
+          mLinks.empty().append(formTemplate({}));
+      }
+      window.copyUrl = function(url) {
+          var copyButton = $("#copy-link");
+          copyButton.zclip({
+              path: '/js/vendor/ZeroClipboard.swf',
+              copy:url,
+              beforeCopy: function () {
+                  console.log("test");
+              },
+              afterCopy: function () {
+                  alert('after copy');
+              }
+          });
+          setTimeout(function(){
+              copyButton.click();
+          },100);
+      }
 
 
     // we want to extned an url so display resolved and redirect

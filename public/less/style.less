@@ -7,6 +7,15 @@ ul.inlined {
     list-style: none;
   }
 }
+a, a:hover {
+  color: #e8881a;
+}
+a {
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
 
 .rounded-corners (@radius: 10px) {
   border-radius: @radius;
@@ -14,19 +23,9 @@ ul.inlined {
   -moz-border-radius: @radius;
 }
 
-a {
-  color: #000;
-  text-decoration: underline;
-  &:hover {
-    color: #444;
-    text-decoration: none;
-  }
-  &:visited {
-    color: #444;
-  }
-}
 
 body {
+
   #bg {
     position: fixed;
     z-index: -1;
@@ -34,11 +33,13 @@ body {
     top: 0;
     right: 0;
   }
-  background-color: #eee;
+
   #wrapper {
     width: 100%;
     height: 100%;
     align: center;
+    background-color: #eaebe3 ;
+    box-shadow: 1px 2px 2px 0 black;
     #main {
       max-width: 600px;
       min-width: 300px;
@@ -51,6 +52,10 @@ body {
       margin: auto;
       height: 100%;
       #mLinks {
+        .spin {
+          margin-left: 50%;
+          margin-top: 15%;
+        }
         .url-display {
           margin: 10px;
         }
@@ -62,15 +67,16 @@ body {
         }
         .rounded-corners;
         text-align: center;
-        #mLinks-url-form {
+        .tdesign {
           input {
             font-size: 20px;
             margin: 10px 10px 10px 10px;
           }            
           .url-input {
-            height: 40px;
-            width: 80%;
+            height: 50px;
+            width: 87%;
             font-size: 22px;
+            border: 2px solid lightgray;
           }
           max-width: 600px;
           min-width: 300px;
@@ -81,34 +87,15 @@ body {
           left: 0;
           right: 0;
           margin: auto;
-          height: 50%;
-          background: #fff;
+          height: 90%;
+
         }
         .mLinks-display {
-          max-width: 600px;
-          min-width: 300px;
-          aligin: left;
-          position: absolute;
-          top:0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          margin: auto;
-          height: 50%;
-          background: #fff;
+          text-align: center;
         }
-        max-width: 600px;
-        min-width: 300px;
-        aligin: left;
-        position: absolute;
-        top:0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        height: 100%;
-        background: #fff;
-        //margin: 200px 0;
+        #copy-button{
+          display: none;
+        }
       }
     }
     #footer {

@@ -1,33 +1,16 @@
-Shrtr - Simple URL Shortener based on Express and Redis
-=======================================================
+# mLinks
+NodeJS url shortener made rediculously simple.
+URL shortening is a technique which a URL may be made substantially shorter in length and still direct to the required page. This is achieved by using a redirect on a domain name that is short, which links to the web page that has a long URL. 
 
-Ready to be hosted on Heroku via Ceader Stack, and running on shrtr.ws
-find out more on how to deploy at [heroku](http://devcenter.heroku.com/articles/node-js).
+#Example
+The URL "http://en.wikipedia.org/wiki/URL_shortening" can be shortened to "http://mLink.com/murl". This is especially convenient for messaging technologies that limit the number of characters that may be used in a message
 
-License
-=======
-Copyright 2011 Philipp Fehre. All rights reserved.
+#Installation
 
-Redistribution and use in source and binary forms, with or without modification, are
-permitted provided that the following conditions are met:
-
-   1. Redistributions of source code must retain the above copyright notice, this list of
-      conditions and the following disclaimer.
-
-   2. Redistributions in binary form must reproduce the above copyright notice, this list
-      of conditions and the following disclaimer in the documentation and/or other materials
-      provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ''AS IS'' AND ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
-CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-The views and conclusions contained in the software and documentation are those of the
-authors and should not be interpreted as representing official policies, either expressed
-or implied, of Philipp Fehre.
+1. Download and install Node.js from here - https://nodejs.org/download/.
+2. Download and install Redis from here - https://github.com/rgl/redis/downloads.
+3. Start Redis Server, You can find redis documentation here - http://redis.io/documentation.
+4. Clone project anywhere on you local machine.
+5. Move to project directory via terminal.
+6. $ sudo npm install
+7. $ sudo node app or $ sudo node app.js
