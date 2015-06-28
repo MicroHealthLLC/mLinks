@@ -16,7 +16,10 @@
     var displayTemplate = _.template($("#mLinks-display-template").html());
     var unsafeTemplate = _.template($("#mLinks-unsafe-template").html());
     var formTemplate = _.template($("#mLinks-form-template").html());
-
+    var vanityTemplate = _.template($("#mLinks-vanity-template").html());
+      var vanityDisplayTemplate = _.template($("#mLinks-vanity-display-template").html());
+      var redirectTemplate =  _.template($("#mLinks-redirect-template").html());
+    var sortUrl = "";
     // Form
     window.mLinksFormSubmit = function(){
       $("#mLinks-url-form").hide();
@@ -31,6 +34,7 @@
           }));
           return;
         }
+          sortUrl = data.surl;
          mLinks.append(displayTemplate({
           urlOne: url,
           urlTwo:  window.location.origin + "/" + data.surl
@@ -38,8 +42,38 @@
       });
     };
 
+      window.mLinksVanitySubmit = function(){
+          $("#mLinks-vanity-form").hide();
+          spin.show();
+          var url = $("#vanity-url-input").val();
+          console.log(url, "url");
+          $.post("/vanityURL", {vanityUrl: url, sortUrl: sortUrl}, function(data){
+              spin.hide();
+              if(!data.success) {
+                  mLinks.append(unsafeTemplate({
+                      urlOne: "Current status for " + url,
+                      error: data.error
+                  }));
+                  return;
+              }
+              console.log({
+                  url: data.res.url,
+                  sortUrl:  window.location.origin + "/" + sortUrl,
+                  urlVanity : data.res.vanityUrl
+              });
+              mLinks.empty().append(vanityDisplayTemplate({
+                  url: data.res.url,
+                  sortUrl:  window.location.origin + "/" + sortUrl,
+                  vanityUrl : data.res.vanityUrl
+              }));
+          });
+      };
+
       window.showFormTemplate = function() {
           mLinks.empty().append(formTemplate({}));
+      }
+      window.showVanityTemplate = function() {
+          mLinks.empty().append(vanityTemplate({placeholder: "Vanity url for " + window.location.origin + "/" + sortUrl}));
       }
       window.copyUrl = function(url) {
           var copyButton = $("#copy-link");
@@ -79,13 +113,26 @@
           }));
           return;
         }
-          mLinks.append(displayTemplate({
-          urlOne: surl,
-          urlTwo: "Redirecting in 3sec " + data.url
+        mLinks.append(redirectTemplate({
+              urlOne: surl,
+              urlTwo: "Redirecting in 3sec " + data.url
         }));
+          var i = 3;
+          setInterval(function(){
+              if(i>0){
+                  mLinks.empty().append(redirectTemplate({
+                      urlOne: surl,
+                      urlTwo: "Redirecting in "+--i+"sec " + data.url
+                  }));
+              }
+          }, 1000);
         setTimeout(function() {
+            mLinks.empty().append(redirectTemplate({
+                urlOne: surl,
+                urlTwo: "Redirecting..."
+            }));
           window.location = data.url;
-        }, 3000);
+        }, 4000);
       });
     } else {
     // display form to shorten Url

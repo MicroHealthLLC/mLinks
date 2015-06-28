@@ -76,6 +76,24 @@ var URL = function() {
         });
     }
 
+    that.vanityURL = function(sUrl, vUrl, cb) {
+        URL.connection().get(sUrl, function(err, res) {
+            if (err) {
+                cb(err);
+                return;
+            } else {
+                res = JSON.parse(res);
+                res.vanityUrl = vUrl;
+                URL.connection().set(sUrl, JSON.stringify(res), function(err, r) {
+                    if(err) {
+                        cb(err);
+                        return;
+                    }
+                    cb(null, res);
+                });
+            }
+        });
+    }
   that.get = function(surl, cb) {
     URL.connection().get(surl, function(err, res) {
       if(err) {

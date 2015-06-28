@@ -1,6 +1,5 @@
 // CSS Reset
 @import "vendor/bootstrap.less";
-
 ul.inlined {
   li {
     display: inline;
@@ -16,16 +15,72 @@ a {
 a:hover {
   text-decoration: none;
 }
-
 .rounded-corners (@radius: 10px) {
   border-radius: @radius;
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
 }
-
-
 body {
 
+  ul.list li{ color:#fff !important;}
+  .stripe a { text-decoration:none; color:#777 !important; font-weight:500;}
+  .stripe-style-1 .list-divider li{ border:none !important;}
+  .stripe a:hover { text-decoration:underline; color:#fff !important; }
+  .dt-mega-menu .sub-nav .dt-mega-parent > a { font-size:14px !important;}
+
+
+  h4{ color:#777 !important;}
+  .items-grid a{ color:#777 !important;}
+  .post .entry-title a { color:#68a3c5 !important;}
+  strong { font-weight: 500 !important;}
+
+
+  #button1 {
+    background: rgba(0, 0, 0, 0) linear-gradient(#686a6f, #000000 50%,
+
+    #000000 51%, #686a6f) repeat scroll 0 0;
+    border-radius: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) inset;
+    color: white;
+    font: 31px/70px verdana,arial,sans-serif;
+    height: 78px;
+    margin-left: 21px;
+    text-align: center;
+    width: 87%;
+
+  }
+
+  #button1:hover {
+    background: #666 none repeat scroll 0 0;
+    cursor: pointer;
+  }
+  #button1 a{
+    color:white;
+  }
+
+  #button1 a:link {
+    text-decoration: none;
+  }
+  #top-bar .wf-container-top, .header-bottom-bar .wf-container-top {
+    padding-bottom: 10px;
+    padding-top: 2px !important;
+  }
+  .tdesign{
+
+    width:100%;
+  }
+  .logo-classic .navigation-holder > div {
+    margin: 0 auto 0 155px;
+    padding: 0 40px;
+  }
+  @media screen and (min-width: 1800px){
+
+    .logo-classic .navigation-holder > div {
+      margin: 0 auto 0 155px;
+      padding: 0 40px;
+      margin-left: 22%;
+    }
+  }
   #bg {
     position: fixed;
     z-index: -1;
