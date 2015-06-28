@@ -1,5 +1,5 @@
 /*
- * Shrtr API
+ * mLink API
  * opts = {
  *  db: REDISCONNECTION,
  *  app: APPLICATION
@@ -31,7 +31,7 @@ var mLinks = function(opts) {
         if(res === null) {
           resp = {"error": "Not found"};
         } else {
-          resp = {"url": res};
+          resp = res;
         }
       }
       response.send(resp);

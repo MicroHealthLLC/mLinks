@@ -46,13 +46,51 @@ var URL = function() {
     }
   });
 
+    that.remove = function() {
+        var con = URL.connection();
+        con.keys('*', function (err, keys) {
+            if (err) return console.log(err);
+            var i = -1;
+            var next = function() {
+                i++;
+                if(i < keys.length) {
+                    con.get(keys[i], function(err, res) {
+                       if(err || res == 1){
+                           next();
+                       } else {
+                           var res = JSON.parse(res);
+                           if(res && res.lastUsed) {
+                               var timeDiff = Math.abs(new Date().getTime() - new Date(res.lastUsed).getTime());
+                               var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                               if(diffDays >= 365) {
+                                   con.del(keys[i]);
+                               }
+                           }
+                           next();
+                       }
+
+                    });
+                }
+            }
+            next();
+        });
+    }
+
   that.get = function(surl, cb) {
     URL.connection().get(surl, function(err, res) {
       if(err) {
         cb(err);
         return;
       }
-      cb(null, res);
+        res = JSON.parse(res);
+        res.lastUsed = new Date();
+        URL.connection().set(surl, JSON.stringify(res), function(err, r) {
+            if(err) {
+                cb(err);
+                return;
+            }
+            cb(null, res);
+        });
     });
   };
 
@@ -68,7 +106,11 @@ var URL = function() {
         return;
       }
       key = res.toString(32);
-      URL.connection().set(key, url, function(err, res) {
+      URL.connection().set(key, JSON.stringify({
+          url:url,
+          lastUsed:new Date(),
+          vanityUrl:""
+      }), function(err, res) {
         if(err) {
           cb(err);
           return;

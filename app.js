@@ -7,7 +7,8 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     errorHandler = require("errorhandler"),
     http = require("http"),
-    mLinks = require("./api/mLinks");
+    mLinks = require("./api/mLinks")
+    URL = require("./models/url");
 
 var app = express(),
     server = http.createServer(app);
@@ -40,5 +41,8 @@ if(["development", "test"].indexOf(env) !== -1) {
 if(process.env.NODE_ENV !== "test") {
   server.listen(port, function(){
     console.log("mLinks server listening on port " + port + " in " + env + " mode");
+      setInterval(function() {
+          URL().remove();
+      },(1000 * 3600 * 12));
   });
 }
