@@ -71,24 +71,7 @@ var URL = function() {
             next();
         });
     }
-    that.vanityURL = function(sUrl, vUrl, cb) {
-        URL.connection().get(sUrl, function(err, res) {
-            if (err) {
-                cb(err);
-                return;
-            } else {
-                res = JSON.parse(res);
-                res.vanityUrl = vUrl;
-                URL.connection().set(sUrl, JSON.stringify(res), function(err, r) {
-                    if(err) {
-                        cb(err);
-                        return;
-                    }
-                    cb(null, res);
-                });
-            }
-        });
-    }
+
   that.get = function(surl, cb) {
     URL.connection().get(surl, function(err, res) {
       if(err) {
@@ -106,29 +89,51 @@ var URL = function() {
         });
     });
   };
-  that.create = function(url, cb) {
+  that.create = function(url, vanityUrl, cb) {
     if(!isValidUrl(url) && !isVlidIP(url) && !isMixOfIpAndQuary(url)) {
-      cb(new Error("Invalid Url"));
+      cb("The url cannot be shortened because its unsafe.");
       return;
     }
-    URL.connection().incr("counter", function(err, res) {
-      if(err) {
-        cb(err);
-        return;
-      }
-      key = res.toString(32);
-      URL.connection().set(key, JSON.stringify({
-          url:url,
-          lastUsed:new Date(),
-          vanityUrl:""
-      }), function(err, res) {
-        if(err) {
-          cb(err);
-          return;
-        }
-        cb(null, key);
-      });
-    });
+    if(vanityUrl && vanityUrl != "") {
+        URL.connection().get(vanityUrl, function(err, res) {
+            if(err) {
+                cb(err);
+                return;
+            }
+            if(res) {
+                cb("Vanity url already taken.");
+            } else {
+                URL.connection().set(vanityUrl, JSON.stringify({
+                    url:url,
+                    lastUsed:new Date()
+                }), function(err, res) {
+                    if(err) {
+                        cb(err);
+                        return;
+                    }
+                    cb(null, vanityUrl);
+                });
+            }
+        });
+    } else {
+        URL.connection().incr("counter", function(err, res) {
+            if(err) {
+                cb(err);
+                return;
+            }
+            key = res.toString(32);
+            URL.connection().set(key, JSON.stringify({
+                url:url,
+                lastUsed:new Date()
+            }), function(err, res) {
+                if(err) {
+                    cb(err);
+                    return;
+                }
+                cb(null, key);
+            });
+        });
+    }
   };
   return that;
 };

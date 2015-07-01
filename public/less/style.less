@@ -21,6 +21,16 @@ a:hover {
   -moz-border-radius: @radius;
 }
 body {
+  #mLinks-url-form, .mLinks-display{margin: 20px 20px 20px 20px;}
+  #arrao-img{
+    height: 14px;
+    opacity: 0.15;
+    width: 13px;
+  }
+  #host-name{
+    padding-top: 18px;
+    text-align: center;
+  }
   ul.list li{ color:#fff !important;}
   .stripe a { text-decoration:none; color:#777 !important; font-weight:500;}
   .stripe-style-1 .list-divider li{ border:none !important;}
@@ -40,7 +50,13 @@ body {
     height: 78px;
     margin-left: 21px;
     text-align: center;
-    width: 87%;
+    width: 100%;
+  }
+  #arraow-img{
+    height: 15px;
+    width: 12px;
+    opacity: 0.15;
+    cursor: pointer;
   }
   #button1:hover {
     background: #666 none repeat scroll 0 0;
@@ -117,8 +133,14 @@ body {
           }            
           .url-input {
             height: 50px;
-            width: 87%;
+            width: 100%;
             font-size: 22px;
+            border: 2px solid lightgray;
+          }
+          .url-vanity {
+            height: 30px;
+            width: 50%;
+            font-size: 16px;
             border: 2px solid lightgray;
           }
           max-width: 600px;

@@ -16,16 +16,27 @@
     var displayTemplate = _.template($("#mLinks-display-template").html());
     var unsafeTemplate = _.template($("#mLinks-unsafe-template").html());
     var formTemplate = _.template($("#mLinks-form-template").html());
-    var vanityTemplate = _.template($("#mLinks-vanity-template").html());
-      var vanityDisplayTemplate = _.template($("#mLinks-vanity-display-template").html());
-      var redirectTemplate =  _.template($("#mLinks-redirect-template").html());
+    var redirectTemplate =  _.template($("#mLinks-redirect-template").html());
     var sortUrl = "";
+    var aUrl = "";
     // Form
     window.mLinksFormSubmit = function(){
-      $("#mLinks-url-form").hide();
-      spin.show();
+
       var url = $("input:first").val();
-      $.post("/shortURL", {url: url}, function(data){
+        var vanityUrl = $("#vanity-url-input").val();
+        if(url.length < 8) {
+            $("input:first").focus();
+            return;
+        }
+        var img = $("#arraow-img").attr("src");
+        if(img == "/img/up.png" && vanityUrl == "") {
+            $("#vanity-url-input").focus();
+            return;
+        }
+        $("#mLinks-url-form").hide();
+        spin.show();
+        aUrl = url;
+      $.post("/shortURL", {url: url, vanityUrl:vanityUrl}, function(data){
         spin.hide();
         if(!data.success) {
             mLinks.append(unsafeTemplate({
@@ -42,38 +53,8 @@
       });
     };
 
-      window.mLinksVanitySubmit = function(){
-          $("#mLinks-vanity-form").hide();
-          spin.show();
-          var url = $("#vanity-url-input").val();
-          console.log(url, "url");
-          $.post("/vanityURL", {vanityUrl: url, sortUrl: sortUrl}, function(data){
-              spin.hide();
-              if(!data.success) {
-                  mLinks.append(unsafeTemplate({
-                      urlOne: "Current status for " + url,
-                      error: data.error
-                  }));
-                  return;
-              }
-              console.log({
-                  url: data.res.url,
-                  sortUrl:  window.location.origin + "/" + sortUrl,
-                  urlVanity : data.res.vanityUrl
-              });
-              mLinks.empty().append(vanityDisplayTemplate({
-                  url: data.res.url,
-                  sortUrl:  window.location.origin + "/" + sortUrl,
-                  vanityUrl : data.res.vanityUrl
-              }));
-          });
-      };
-
       window.showFormTemplate = function() {
-          mLinks.empty().append(formTemplate({}));
-      }
-      window.showVanityTemplate = function() {
-          mLinks.empty().append(vanityTemplate({placeholder: "Vanity url for " + window.location.origin + "/" + sortUrl}));
+          mLinks.empty().append(formTemplate({url:aUrl, vanityUrl:window.location.origin + "/"}));
       }
       window.copyUrl = function(url) {
           var copyButton = $("#copy-link");
@@ -81,7 +62,7 @@
               path: '/js/vendor/ZeroClipboard.swf',
               copy:url,
               beforeCopy: function () {
-                  console.log("test");
+                  console.log("before copy");
               },
               afterCopy: function () {
                   alert('after copy');
@@ -90,6 +71,15 @@
           setTimeout(function(){
               copyButton.click();
           },100);
+      }
+      window.toggleVanity = function() {
+          $("#vanity-url").slideToggle();
+          var img = $("#arraow-img").attr("src");
+          if(img == "/img/down.png") {
+              $("#arraow-img").attr("src", "/img/up.png");
+          } else {
+              $("#arraow-img").attr("src", "/img/down.png");
+          }
       }
     // we want to extned an url so display resolved and redirect
     if(window.mLinksSurl !== "false") {
@@ -134,7 +124,7 @@
       });
     } else {
     // display form to shorten Url
-        mLinks.append(formTemplate());
+        mLinks.append(formTemplate({url:"", vanityUrl:window.location.origin + "/"}));
     }
   });
 

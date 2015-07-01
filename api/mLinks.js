@@ -34,20 +34,11 @@ var mLinks = function(opts) {
       response.send(resp);
     });
   });
-    app.post("/vanityURL", function(req, response) {
-        url.vanityURL(req.body.sortUrl, req.body.vanityUrl, function(err, res) {
-            if(err) {
-                resp = {success:false, error: "The url cannot be shortened because its unsafe."};
-            } else {
-                resp = {success:true, res: res};
-            }
-            response.send(resp);
-        });
-    });
+
   app.post("/shortURL", function(req, response) {
-    url.create(req.body.url.trim(), function(err, res) {
+    url.create(req.body.url.trim(), req.body.vanityUrl.trim(), function(err, res) {
       if(err) {
-        resp = {success:false, error: "The url cannot be shortened because its unsafe."};
+        resp = {success:false, error: err};
       } else {
         resp = {success:true, surl: res};
       }
