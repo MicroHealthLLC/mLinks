@@ -21,7 +21,6 @@
     var aUrl = "";
     // Form
     window.mLinksFormSubmit = function(){
-
       var url = $("input:first").val();
         var vanityUrl = $("#vanity-url-input").val();
         if(url.length < 8) {
@@ -40,19 +39,20 @@
         spin.hide();
         if(!data.success) {
             mLinks.append(unsafeTemplate({
-            urlOne: "Current status for " + url,
+            urlOne: "<span style='font-weight: bold;'>Current status for:</span> " + url,
             error: data.error
           }));
           return;
         }
-          sortUrl = data.surl;
+         sortUrl = data.surl;
+         aUrl = "";
          mLinks.append(displayTemplate({
           urlOne: url,
           urlTwo:  window.location.origin + "/" + data.surl
         }));
+          $("#shortern-url").select();
       });
     };
-
       window.showFormTemplate = function() {
           mLinks.empty().append(formTemplate({url:aUrl, vanityUrl:window.location.origin + "/"}));
       }
@@ -127,5 +127,4 @@
         mLinks.append(formTemplate({url:"", vanityUrl:window.location.origin + "/"}));
     }
   });
-
 })(jQuery);

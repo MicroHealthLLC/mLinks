@@ -41,13 +41,26 @@
           <script type="text/template" id="mLinks-display-template">
           <div class="mLinks-display">
               <br />
-            <div class="url-display url-one"><a href="{{ urlOne }}">{{ urlOne }}</a></div>
-            <div class="url-display url-two"><a href="{{ urlTwo }}">{{ urlTwo }}</a></div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="url-display" style="font-weight: bold;"> Your shortened URL is: </span>
+                </div>
+                <div class="col-sm-12">
+                    <input type="text" id="shortern-url" value="{{urlTwo}}" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                    <br>
+                    <span class="url-display"> Your shortened URL goes to: {{urlOne}} </span>
+                </div>
+                <div class="col-sm-12">
+                    <br><br>
+                    <input type="button" style="text-align: center;" onclick="window.showFormTemplate();" value="Shorten Again" id="button1" />
+                </div>
+            </div>
             <div class="url-display copy-to-clip">
                 <br />
-                <a id="copy-button" href="#">Copy</a>
-                <input type="button" onclick="window.copyUrl('{{ urlTwo }}');" id="button1" value="Copy URL" />
-                <input type="button" style="text-align: center;" onclick="window.showFormTemplate();" value="Try Again" id="button1" />
+
+
             </div>
           </div>
         </script>
@@ -64,7 +77,7 @@
                 <div class="url-display url-one">{{ urlOne }}</div>
                 <div class="url-display error">{{ error }}</div>
                 <br /><br /><br />
-                <input type="button" id="button1" onclick="window.showFormTemplate();" value="Try Again" />
+                <input type="button" id="button1" onclick="window.showFormTemplate();" value="Shorten Again" />
             </div>
         </script>
       </div>
